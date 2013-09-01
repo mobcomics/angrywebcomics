@@ -44,9 +44,12 @@ var fadeImageFile = 'tranparent10.png'; // 10% transparency
 var showInAppAd = false;
 var windowLoaded = false;
 var comicDataLoaded = false;
+var comicFolder;
+
 
 function init() {
 	console.log("windowLoaded");
+	comicFolder = comics.comicsList[gup('comic')].folderUrl;
 	windowLoaded = true;
 	if (comicDataLoaded) continueInit();
 };
@@ -231,7 +234,7 @@ function panelTransition(counter) {
 function preparePanelTransition() {	
 	// variables with postfix 1 is the current image, 2 is the next
 	savedImageSrc = myComic.panels[thisPic].pimage; // save the name if the image file
-	document.getElementById("myPicture").src = comics.comicsList[0].folderUrl+""+myComic.panels[thisPic].pimage; 
+	document.getElementById("myPicture").src = comicFolder+""+myComic.panels[thisPic].pimage; 
 	var heightFactor = 1;
 	var widthFactor = 1;
 	var factor1 = factor;
@@ -270,7 +273,7 @@ function closePage(counter) {
 		document.getElementById("pictureFrame").style.width = '0px';
 		document.getElementById("pictureFrame").style.borderLeftWidth = '0px';
 		document.getElementById("pictureFrame").style.borderRightWidth = window.innerWidth+'px';
-		document.getElementById("myPicture").src = comics.comicsList[0].folderUrl+""+myComic.panels[thisPic].pimage; 
+		document.getElementById("myPicture").src = comicFolder+""+myComic.panels[thisPic].pimage; 
 		document.getElementById("myPicture").style.display = 'none'; // hide image until changePage is called by displayPanel() after image.onload
 		document.getElementById("pictureFrame").style.backgroundImage = "none";
 		}
@@ -318,7 +321,7 @@ function preparePanel() { // only used when showing previous panel and changing 
 		panelHeight = myComic.panels[thisPic].height;		
 		}
 	document.getElementById("navigatorText").innerHTML = thisPic + 1 +"/" + myComic.panels.length; 
-	document.getElementById("myPicture").src = comics.comicsList[0].folderUrl+""+myComic.panels[thisPic].pimage; 
+	document.getElementById("myPicture").src = comicFolder+""+myComic.panels[thisPic].pimage; 
 	if (window.innerWidth < panelWidth) widthFactor = window.innerWidth/panelWidth;
 	if (window.innerHeight < panelHeight) heightFactor = window.innerHeight/panelHeight;
 	if (heightFactor < widthFactor) {factor = heightFactor;} else {factor = widthFactor;}
@@ -428,6 +431,7 @@ function track(key, context, source) {
 
 
 function loadScript(){
+	comicFolder = comics.comicsList[gup('comic')].folderUrl;
     var script = document.createElement("script")
     script.type = "text/javascript";
     script.onload = function(){
@@ -435,6 +439,6 @@ function loadScript(){
 		comicDataLoaded = true;
 		if (windowLoaded) continueInit();
     };
-    script.src = comics.comicsList[0].folderUrl+""+comics.comicsList[0].dataFile;
+    script.src = comicFolder+""+comics.comicsList[0].dataFile;
     document.getElementsByTagName("head")[0].appendChild(script);
 }
