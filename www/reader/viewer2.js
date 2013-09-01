@@ -25,8 +25,8 @@ var factor = 1;
 var panelWidth = 0;
 var panelHeight = 0;
 var zoomingOn = false;
-var transitionSteps = 10; // how many steps in transition 
-var transitionStepDelay = 50; // transition step in msec 
+var transitionSteps = 20; // how many steps in transition 
+var transitionStepDelay = 25; // transition step in msec 
 var pageTransitionSteps = 5; // how many steps in transition 
 var pageTransitionStepDelay = 40;
 var pageTransitionOn = false;
@@ -56,7 +56,7 @@ function init() {
 function continueInit() {
 	track('AppID'+myComic.appID+'_session'+sessionStorage.sessionID, "viewer", "viewer.js");
 	storagePointer = "c"+gup('comic');
-	currentComic = parseInt(gup('comic'));
+	currentComic = ""+gup('comic')+"";
 	uagent = navigator.userAgent.toLowerCase();
 	if (uagent.search("symbian") > -1) { // Symbian device performance are typically low
 		transitionSteps = parseInt(transitionSteps/2);  
@@ -91,8 +91,8 @@ function continueInit() {
 	document.getElementById("playIndicator").style.display = 'none'; 
 	if (window.widget) {if (softkeyControlled) menu.hideSoftkeys();}
 	if (gup('panel') != "") {processShortcut(parseInt(gup('panel')))} // Creator uses url parameter for deeplinking to a panel
-	else if (sessionStorage.currentPanel[currentComic] > 0) {
-		processShortcut(parseInt(sessionStorage.currentPanel[currentComic]));
+	else if (sessionStorage.currentPanel > 0) {
+		processShortcut(parseInt(sessionStorage.currentPanel));
 	};
 	if (sessionStorage.autoplay == 1) {
 		autoPlay = true;
@@ -105,9 +105,9 @@ function processShortcut(panelNumber) {
 	inAppAdsEnabled = false; // if shortcut is used to start reading the in-app ads are off
 	hideTapGuide(); // if shortcut is used, hide the tapping guide right away
 	thisPic = panelNumber-1;
-	sessionStorage.currentPanel[currentComic] = thisPic+1;
+	sessionStorage.currentPanel = thisPic+1;
 	if (thisPic <= -1 || thisPic >= myComic.panels.length) {
-		sessionStorage.currentPanel[currentComic] = 0;
+		sessionStorage.currentPanel = 0;
 		window.location = "artist.html"; 
 		return false; 
 	} 
@@ -118,7 +118,7 @@ function processShortcut(panelNumber) {
 
 function processPrevious() {
 	thisPic--;
-	sessionStorage.currentPanel[currentComic] = thisPic;
+	sessionStorage.currentPanel = thisPic;
 	if (thisPic == -1) {
 		window.location = "../comicslist2.html"; 
 		return false; 
@@ -185,7 +185,7 @@ function processKeypress() {
 function processNext() {
 	track('AppID'+myComic.appID+'_session'+sessionStorage.sessionID, thisPic.toString(), "viewer.js");
 	thisPic++;	
-	sessionStorage.currentPanel[currentComic] = thisPic;
+	sessionStorage.currentPanel = thisPic;
 	for (var j=0; j <= pageTransitionSteps; j++) { // hide fade out images
 		fadeImages[j].style.display = 'none';
 	}
