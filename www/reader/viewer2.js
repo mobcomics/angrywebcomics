@@ -58,7 +58,6 @@ function init() {
 
 function continueInit() {
 //	track('AppID'+myComic.appID+'_session'+sessionStorage.sessionID, "viewer", "viewer.js");
-//	storagePointer = "c"+gup('comic');
 	if (gup('comic') != "") currentComic = ""+gup('comic')+"";
 	console.log(currentComic);
 	uagent = navigator.userAgent.toLowerCase();
@@ -450,22 +449,24 @@ function loadScript(){
 }
 
 function browserStoragePanelNumber() {
-	panelPointer = JSON.parse(sessionStorage["currentPanel2"]);
-	console.log("panel:"+panelPointer[currentComic]);
+//	console.log(sessionStorage.currentPanel2);
+	if (sessionStorage.currentPanel2 == undefined) {
+		return 1;
+	}
+	console.log(sessionStorage.currentPanel2);
+	panelPointer = JSON.parse(sessionStorage.currentPanel2);
+	if (panelPointer[currentComic] == null) return 1;
 	return panelPointer[currentComic];
-// return "5";
 }
 
 function setBrowserStoragePanelNumber() {
-	panelPointer = JSON.parse(sessionStorage["currentPanel2"]);
-	console.log("panelPointer"+panelPointer);
+	if (sessionStorage.currentPanel2 != undefined) panelPointer = JSON.parse(sessionStorage.currentPanel2);	
 	panelPointer[currentComic] = thisPic+1;
 	sessionStorage.currentPanel2 = JSON.stringify(panelPointer);
 }
 
 function resetBrowserStoragePanelNumber() {
-	panelPointer = JSON.parse(sessionStorage["currentPanel2"]);
-	console.log("panelPointer"+panelPointer);
+	if (sessionStorage.currentPanel2 != undefined) panelPointer = JSON.parse(sessionStorage.currentPanel2);	
 	panelPointer[currentComic] = 0;
 	sessionStorage.currentPanel2 = JSON.stringify(panelPointer);
 }
