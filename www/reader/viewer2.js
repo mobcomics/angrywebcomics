@@ -46,8 +46,10 @@ var windowLoaded = false;
 var comicDataLoaded = false;
 var comicFolder;
 var panelPointer = [];
+var currentComic = "0";
 
 function init() {
+	if(!window.console){ window.console = {log: function(){} }; } 
 	console.log("windowLoaded");
 	comicFolder = comics.comicsList[gup('comic')].folderUrl;
 	windowLoaded = true;
@@ -55,9 +57,10 @@ function init() {
 };
 
 function continueInit() {
-	track('AppID'+myComic.appID+'_session'+sessionStorage.sessionID, "viewer", "viewer.js");
-	storagePointer = "c"+gup('comic');
-	currentComic = ""+gup('comic')+"";
+//	track('AppID'+myComic.appID+'_session'+sessionStorage.sessionID, "viewer", "viewer.js");
+//	storagePointer = "c"+gup('comic');
+	if (gup('comic') != "") currentComic = ""+gup('comic')+"";
+	console.log(currentComic);
 	uagent = navigator.userAgent.toLowerCase();
 	if (uagent.search("symbian") > -1) { // Symbian device performance are typically low
 		transitionSteps = parseInt(transitionSteps/2);  
@@ -95,7 +98,7 @@ function continueInit() {
 	else if (browserStoragePanelNumber() > 0) {  
 		processShortcut(parseInt(browserStoragePanelNumber()));
 	};
-	if (sessionStorage.autoplay == 1) {
+	if (browserStorageAutoplay()) {
 		autoPlay = true;
 		document.getElementById("playIndicator").style.display = 'block'; // makes image visible
 		setTimeout(callAutoPlay, autoPlayDelay);
@@ -159,14 +162,14 @@ function processKeypress() {
 		if (autoPlay) {
 			transitionEventCounter++; // to skip the remaining event
 			autoPlay = false;
-			sessionStorage.autoplay = 0;
+			setBrowserStorageAutoplay(false);
 	//		skipAutoPlayEvent = false;
 			document.getElementById("playIndicator").style.display = 'none'; // hide image 
 			return false;
 		} else {
 			document.getElementById("playIndicator").style.display = 'block'; // makes image visible
 			autoPlay = true;
-			sessionStorage.autoplay = 1;
+			setBrowserStorageAutoplay(true);
 		}
 	  }
 	  if (selection == "LEFT") {
@@ -187,7 +190,7 @@ function processKeypress() {
 }
 
 function processNext() {
-	track('AppID'+myComic.appID+'_session'+sessionStorage.sessionID, thisPic.toString(), "viewer.js");
+//	track('AppID'+myComic.appID+'_session'+sessionStorage.sessionID, thisPic.toString(), "viewer.js");
 	thisPic++;	
 	setBrowserStoragePanelNumber(); 
 	for (var j=0; j <= pageTransitionSteps; j++) { // hide fade out images
@@ -438,7 +441,7 @@ function loadScript(){
     var script = document.createElement("script")
     script.type = "text/javascript";
     script.onload = function(){
-		console.log("comicDataLoaded");
+//		console.log("comicDataLoaded");
 		comicDataLoaded = true;
 		if (windowLoaded) continueInit();
     };
@@ -448,20 +451,34 @@ function loadScript(){
 
 function browserStoragePanelNumber() {
 	panelPointer = JSON.parse(sessionStorage["currentPanel2"]);
-	console.log("panel:"+panelPointer[gup('comic')]);
-	return panelPointer[gup('comic')];
+	console.log("panel:"+panelPointer[currentComic]);
+	return panelPointer[currentComic];
+// return "5";
 }
 
 function setBrowserStoragePanelNumber() {
 	panelPointer = JSON.parse(sessionStorage["currentPanel2"]);
 	console.log("panelPointer"+panelPointer);
-	panelPointer[gup('comic')] = thisPic+1;
+	panelPointer[currentComic] = thisPic+1;
 	sessionStorage.currentPanel2 = JSON.stringify(panelPointer);
 }
 
 function resetBrowserStoragePanelNumber() {
 	panelPointer = JSON.parse(sessionStorage["currentPanel2"]);
 	console.log("panelPointer"+panelPointer);
-	panelPointer[gup('comic')] = 0;
+	panelPointer[currentComic] = 0;
 	sessionStorage.currentPanel2 = JSON.stringify(panelPointer);
 }
+
+function setBrowserStorageAutoplay(set) {
+	if (set) sessionStorage.autoplay = "1";
+	else sessionStorage.autoplay = "0";
+}
+
+function browserStorageAutoplay() {
+	if (sessionStorage.autoplay == "1") {
+		return true;
+	}
+	else return false;
+}
+
