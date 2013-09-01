@@ -46,7 +46,6 @@ var windowLoaded = false;
 var comicDataLoaded = false;
 var comicFolder;
 
-
 function init() {
 	console.log("windowLoaded");
 	comicFolder = comics.comicsList[gup('comic')].folderUrl;
@@ -58,7 +57,6 @@ function continueInit() {
 	track('AppID'+myComic.appID+'_session'+sessionStorage.sessionID, "viewer", "viewer.js");
 	storagePointer = "c"+gup('comic');
 	currentComic = parseInt(gup('comic'));
-	document.getElementById("coverLink").href = "cover.html";
 	uagent = navigator.userAgent.toLowerCase();
 	if (uagent.search("symbian") > -1) { // Symbian device performance are typically low
 		transitionSteps = parseInt(transitionSteps/2);  
@@ -430,7 +428,6 @@ function track(key, context, source) {
     );
 	*/
 }
-
 
 function loadScript(){
 	comicFolder = comics.comicsList[gup('comic')].folderUrl;
