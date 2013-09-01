@@ -5,13 +5,14 @@ var comicDataLoaded = false;
 window.onload = init;
 
 function init() {
+	if(!window.console){ window.console = {log: function(){} }; } 
 	console.log("windowLoaded");
 	windowLoaded = true;
 	if (comicDataLoaded) continueInit();
 };
 
 function continueInit() {
-//	showComics();
+	showComics();
 }
 
 function showComics() {
@@ -40,6 +41,7 @@ function openComic(index) {
 	}
 
 function loadScript(){
+	if(!window.console){ window.console = {log: function(){} }; } 
     var script = document.createElement("script")
     script.type = "text/javascript";
     script.onload = function(){
