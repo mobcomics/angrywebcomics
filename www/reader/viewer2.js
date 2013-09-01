@@ -56,6 +56,8 @@ function init() {
 
 function continueInit() {
 	track('AppID'+myComic.appID+'_session'+sessionStorage.sessionID, "viewer", "viewer.js");
+	storagePointer = "c"+gup('comic');
+	currentComic = parseInt(gup('comic'));
 	document.getElementById("coverLink").href = "cover.html";
 	uagent = navigator.userAgent.toLowerCase();
 	if (uagent.search("symbian") > -1) { // Symbian device performance are typically low
@@ -91,8 +93,8 @@ function continueInit() {
 	document.getElementById("playIndicator").style.display = 'none'; 
 	if (window.widget) {if (softkeyControlled) menu.hideSoftkeys();}
 	if (gup('panel') != "") {processShortcut(parseInt(gup('panel')))} // Creator uses url parameter for deeplinking to a panel
-	else if (sessionStorage.currentPanel > 0) {
-		processShortcut(parseInt(sessionStorage.currentPanel));
+	else if (sessionStorage.currentPanel[currentComic] > 0) {
+		processShortcut(parseInt(sessionStorage.currentPanel[currentComic]));
 	};
 	if (sessionStorage.autoplay == 1) {
 		autoPlay = true;
@@ -105,9 +107,9 @@ function processShortcut(panelNumber) {
 	inAppAdsEnabled = false; // if shortcut is used to start reading the in-app ads are off
 	hideTapGuide(); // if shortcut is used, hide the tapping guide right away
 	thisPic = panelNumber-1;
-	sessionStorage.currentPanel = thisPic;
+	sessionStorage.currentPanel[currentComic] = thisPic+1;
 	if (thisPic <= -1 || thisPic >= myComic.panels.length) {
-		sessionStorage.currentPanel = 0;
+		sessionStorage.currentPanel[currentComic] = 0;
 		window.location = "artist.html"; 
 		return false; 
 	} 
@@ -118,9 +120,9 @@ function processShortcut(panelNumber) {
 
 function processPrevious() {
 	thisPic--;
-	sessionStorage.currentPanel = thisPic;
+	sessionStorage.currentPanel[currentComic] = thisPic;
 	if (thisPic == -1) {
-		window.location = "artist.html"; 
+		window.location = "../comicslist2.html"; 
 		return false; 
 	} 
 	document.getElementById("myPicture").style.display = 'none';
@@ -185,13 +187,13 @@ function processKeypress() {
 function processNext() {
 	track('AppID'+myComic.appID+'_session'+sessionStorage.sessionID, thisPic.toString(), "viewer.js");
 	thisPic++;	
-	sessionStorage.currentPanel = thisPic;
+	sessionStorage.currentPanel[currentComic] = thisPic;
 	for (var j=0; j <= pageTransitionSteps; j++) { // hide fade out images
 		fadeImages[j].style.display = 'none';
 	}
 	if (inAppAdsEnabled && thisPic == showAtLeastPanels) showInAppAd = true;  
 	if (thisPic == myComic.panels.length) { 
-		window.location = "artist.html"; 
+		window.location = "../comicslist2.html"; 
 		return false;
 	}
 	if ((myComic.panels[thisPic].pimage == savedImageSrc) || pageTransitionOn) { // if pagetranstition is on do not start a new one
@@ -439,6 +441,6 @@ function loadScript(){
 		comicDataLoaded = true;
 		if (windowLoaded) continueInit();
     };
-    script.src = comicFolder+""+comics.comicsList[0].dataFile;
+    script.src = comicFolder+""+comics.comicsList[gup('comic')].dataFile;
     document.getElementsByTagName("head")[0].appendChild(script);
 }
