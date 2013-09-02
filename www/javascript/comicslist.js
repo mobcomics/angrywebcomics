@@ -17,6 +17,10 @@ function continueInit() {
 	showComics();
 }
 
+
+//	artistTextLink = artistTextLink + "<a href=\"javascript:openBrowser('"+myComic.artist.URL+"')\">"+artists+"</a>"+"\n";
+//	document.getElementById("artistLink").innerHTML = artistTextLink;
+
 function showComics() {
 	var cList = "";
 	var itemCode1 = "<div class='adListBoxAreaStyle'>";
@@ -29,11 +33,13 @@ function showComics() {
 	var panelCode2 = "</div>";
 	var descCode1 = "<div class='adTextStyle'>";
 	var descCode2 = "</div>";
+	var artistCode1 = "<div class='adTextStyle'><a href=\"javascript:openBrowser('";
+	var artistCode2 = "</div>";	
 	console.log(comics.comicsList.length);
 	for (var i=0;i<comics.comicsList.length;i++) {
 		var c = comics.comicsList[i];
 		var panelsLeft = c.panelCount-readPanels(i);
-		cList+=itemCode1+imgCode1+c.folderUrl+c.icon+imgCode2+titleCode1+i+");'>"+c.title+titleCode3+panelCode1+panelsLeft+" unread panels"+panelCode2+descCode1+c.description+descCode2+itemCode2;
+		cList+=itemCode1+imgCode1+c.folderUrl+c.icon+imgCode2+titleCode1+i+");'>"+c.title+titleCode3+panelCode1+panelsLeft+" unread panels"+panelCode2+descCode1+c.description+descCode2+artistCode1+c.creatorUrl+"')\">by "+c.creatorNames+"</a>"+artistCode2+itemCode2;
 		}
 	console.log(cList);
 	document.getElementById("comics").innerHTML = cList;		
@@ -42,6 +48,10 @@ function showComics() {
 
 function openComic(index) {
 	window.location = "reader/viewer.html?comic="+index;
+	}
+
+function openBrowser(url) {
+	window.location = url;
 	}
 
 function loadScript(){

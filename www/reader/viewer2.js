@@ -206,12 +206,6 @@ function processNext() {
 	} else { // check if image file changes
 		pageTransitionOn = true;
 		closePage(pageTransitionSteps);
-// in-app ads removed		
-//		if (showInAppAd) { // show in-app ad just before the next page change
-//			sessionStorage.currentPanel = thisPic;
-//			window.location = "offers.html"; 
-//			showInAppAd = false;
-//			}
 	}
 	if (autoPlay) { 
 		setTimeout(callAutoPlay, autoPlayDelay);
@@ -460,7 +454,7 @@ function browserStoragePanelNumber() {
 
 function setBrowserStoragePanelNumber() {
 	if (localStorage.currentPanel2 != undefined) panelPointer = JSON.parse(localStorage.currentPanel2);	
-	panelPointer[currentComic] = thisPic+1;
+	if (thisPic != myComic.panels.length) panelPointer[currentComic] = thisPic+1;
 	localStorage.currentPanel2 = JSON.stringify(panelPointer);
 }
 
@@ -481,39 +475,3 @@ function browserStorageAutoplay() {
 	}
 	else return false;
 }
-
-/*
-function browserStoragePanelNumber() {
-	if (sessionStorage.currentPanel2 == undefined) {
-		return 1;
-	}
-	console.log(sessionStorage.currentPanel2);
-	panelPointer = JSON.parse(sessionStorage.currentPanel2);
-	if (panelPointer[currentComic] == null) return 1;
-	return panelPointer[currentComic];
-}
-
-function setBrowserStoragePanelNumber() {
-	if (sessionStorage.currentPanel2 != undefined) panelPointer = JSON.parse(sessionStorage.currentPanel2);	
-	panelPointer[currentComic] = thisPic+1;
-	sessionStorage.currentPanel2 = JSON.stringify(panelPointer);
-}
-
-function resetBrowserStoragePanelNumber() {
-	if (sessionStorage.currentPanel2 != undefined) panelPointer = JSON.parse(sessionStorage.currentPanel2);	
-	panelPointer[currentComic] = 0;
-	sessionStorage.currentPanel2 = JSON.stringify(panelPointer);
-}
-
-function setBrowserStorageAutoplay(set) {
-	if (set) sessionStorage.autoplay = "1";
-	else sessionStorage.autoplay = "0";
-}
-
-function browserStorageAutoplay() {
-	if (sessionStorage.autoplay == "1") {
-		return true;
-	}
-	else return false;
-}
-*/
