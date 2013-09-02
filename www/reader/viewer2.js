@@ -449,7 +449,6 @@ function loadScript(){
 }
 
 function browserStoragePanelNumber() {
-//	console.log(sessionStorage.currentPanel2);
 	if (sessionStorage.currentPanel2 == undefined) {
 		return 1;
 	}
