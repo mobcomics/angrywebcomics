@@ -9,6 +9,7 @@ function init() {
 	console.log("windowLoaded");
 	windowLoaded = true;
 	if (comicDataLoaded) continueInit();
+	
 };
 
 function continueInit() {
@@ -24,12 +25,39 @@ function showComics2() {
 	for (var i=0;i<comics.comicsList.length;i++) {
 		var c = comics.comicsList[i];
 		var panelsLeft = c.panelCount-readPanels(i);
-		cList+="<li><a rel='external' href='reader/viewer.html?comic="+i+"'><img src='"+c.folderUrl+c.icon+"'><h2>"+c.title+"<span class='ui-li-count'>"+panelsLeft+"</span></h2><p>"+c.description+"</p></a><a href='#comicinfo' data-rel='popup' data-position-to='window' data-icon='info'>Purchase album</a></li>";
+		cList+="<li><a rel='external' href='reader/viewer.html?comic="+i+"'><img src='"+c.folderUrl+c.icon+"'><h2>"+c.title+"<span class='ui-li-count'>"+panelsLeft+"</span></h2><p>"+c.description+"</p></a><a id='info"+i+"' href='#comicinfo' data-rel='popup' data-position-to='window' data-icon='info'>Comic Info</a></li>";
 	//  took the transition out: data-transition='pop'	
 	}
 	$("#comics2").html(cList);
 	$('#comics2').listview('refresh');
-}
+	for (var i=0;i<comics.comicsList.length;i++) {
+		$("#info"+i).bind('click', { row: i}, function(event) {
+			var data = event.data;
+			test(data.row);
+		});
+		}
+	}
+	
+function test(p) {
+	console.log("testi"+p);
+	}	
+
+function updatePopUp() {
+	
+	}
+
+/*
+<div data-role="popup" id="comicinfo" data-theme="d" data-overlay-theme="b" class="ui-content" padding-bottom:2em;">
+    <h3>Raging Saintmakers Square</h3>
+    <p><a href="http://viistar.com">By Renee Yoch (click to view Website)</a></p>    
+    <div>A story about a cannibal in a bustle, a trainee diplomat, and a very large fish.</div>
+    <div><img src="http://mobcomics.com/test/saintmakers1/assets/ss.png" style="height:300px"></div>
+    <a id="read" href="reader/viewer.html?comic=0" data-role="button" rel="external" data-theme="a" data-inline="true" data-mini="true">Read</a>
+    <a id="cancel" href="#" data-role="button" data-rel="back" data-inline="true" data-mini="true">Cancel</a>
+</div>
+*/
+
+
 
 /*
 function showComics() {
