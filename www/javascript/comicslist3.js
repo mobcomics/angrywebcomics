@@ -24,32 +24,13 @@ function showComics2() {
 	for (var i=0;i<comics.comicsList.length;i++) {
 		var c = comics.comicsList[i];
 		var panelsLeft = c.panelCount-readPanels(i);
-		cList+="<li><a rel='external' href='reader/viewer.html?comic="+i+"'><img src='"+c.folderUrl+c.icon+"'><h2>"+c.title+"</h2><p>"+c.description+"</p></a></li>";
+		cList+="<li><a rel='external' href='reader/viewer.html?comic="+i+"'><img src='"+c.folderUrl+c.icon+"'><h2>"+c.title+" ("+panelsLeft+")</h2><p>"+c.description+"</p></a></li>";
 	}
 	$("#comics2").html(cList);
 	$('#comics2').listview('refresh');
 }
 
 /*
-<ul data-role="listview" data-inset="true">
-    <li><a href="#">
-        <img src="../../_assets/img/album-bb.jpg">
-        <h2>Broken Bells</h2>
-        <p>Broken Bells</p></a>
-    </li>
-    <li><a href="#">
-        <img src="../../_assets/img/album-hc.jpg">
-        <h2>Warning</h2>
-        <p>Hot Chip</p></a>
-    </li>
-    <li><a href="#">
-        <img src="../../_assets/img/album-p.jpg">
-        <h2>Wolfgang Amadeus Phoenix</h2>
-        <p>Phoenix</p></a>
-    </li>
-</ul>
-*/
-
 function showComics() {
 	var cList = "";
 	var itemCode1 = "<div>";
@@ -74,6 +55,7 @@ function showComics() {
 	document.getElementById("comics").innerHTML = cList;		
 //	$("#comics").html(cList);		
 	}
+*/
 
 function openComic(index) {
 	window.location = "reader/viewer.html?comic="+index;
