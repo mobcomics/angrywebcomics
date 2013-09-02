@@ -449,6 +449,41 @@ function loadScript(){
 }
 
 function browserStoragePanelNumber() {
+	if (localStorage.currentPanel2 == undefined) {
+		return 1;
+	}
+	console.log(localStorage.currentPanel2);
+	panelPointer = JSON.parse(localStorage.currentPanel2);
+	if (panelPointer[currentComic] == null) return 1;
+	return panelPointer[currentComic];
+}
+
+function setBrowserStoragePanelNumber() {
+	if (localStorage.currentPanel2 != undefined) panelPointer = JSON.parse(localStorage.currentPanel2);	
+	panelPointer[currentComic] = thisPic+1;
+	localStorage.currentPanel2 = JSON.stringify(panelPointer);
+}
+
+function resetBrowserStoragePanelNumber() {
+	if (localStorage.currentPanel2 != undefined) panelPointer = JSON.parse(localStorage.currentPanel2);	
+	panelPointer[currentComic] = 0;
+	localStorage.currentPanel2 = JSON.stringify(panelPointer);
+}
+
+function setBrowserStorageAutoplay(set) {
+	if (set) localStorage.autoplay = "1";
+	else localStorage.autoplay = "0";
+}
+
+function browserStorageAutoplay() {
+	if (localStorage.autoplay == "1") {
+		return true;
+	}
+	else return false;
+}
+
+/*
+function browserStoragePanelNumber() {
 	if (sessionStorage.currentPanel2 == undefined) {
 		return 1;
 	}
@@ -481,4 +516,4 @@ function browserStorageAutoplay() {
 	}
 	else return false;
 }
-
+*/

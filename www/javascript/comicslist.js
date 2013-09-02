@@ -58,12 +58,12 @@ function loadScript(){
 }
 
 function readPanels(currentComic) {
-	if (sessionStorage.currentPanel2 == undefined) {
+	if (localStorage.currentPanel2 == undefined) {
 		return 0;
 	}
 	var panelPointer = [];
-	console.log(sessionStorage.currentPanel2);
-	panelPointer = JSON.parse(sessionStorage.currentPanel2);
+	console.log(localStorage.currentPanel2);
+	panelPointer = JSON.parse(localStorage.currentPanel2);
 	if (panelPointer[currentComic] == null) return 0;
 	return panelPointer[currentComic];
 }
