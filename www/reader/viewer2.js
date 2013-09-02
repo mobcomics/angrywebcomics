@@ -113,7 +113,7 @@ function processShortcut(panelNumber) {
 	if (thisPic <= -1 || thisPic >= myComic.panels.length) {
 //		sessionStorage.currentPanel = 0;
 		resetBrowserStoragePanelNumber();
-		window.location = "../comicslist2.html"; 
+		window.location = "../comicslist3.html"; 
 		return false; 
 	} 
 	document.getElementById("myPicture").style.display = 'block';
@@ -126,7 +126,7 @@ function processPrevious() {
 //	sessionStorage.currentPanel = thisPic;
 	setBrowserStoragePanelNumber();
 	if (thisPic == -1) {
-		window.location = "../comicslist2.html"; 
+		window.location = "../comicslist3.html"; 
 		return false; 
 	} 
 	document.getElementById("myPicture").style.display = 'none';
@@ -197,7 +197,7 @@ function processNext() {
 	}
 	if (inAppAdsEnabled && thisPic == showAtLeastPanels) showInAppAd = true;  
 	if (thisPic == myComic.panels.length) { 
-		window.location = "../comicslist2.html"; 
+		window.location = "../comicslist3.html"; 
 		return false;
 	}
 	if ((myComic.panels[thisPic].pimage == savedImageSrc) || pageTransitionOn) { // if pagetranstition is on do not start a new one
