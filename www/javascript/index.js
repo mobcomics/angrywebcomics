@@ -25,6 +25,9 @@ function continueInit(i) {
 	document.getElementById("description").innerHTML = editor.description;
 	document.getElementById("post").innerHTML = editor.post;
 	$("#editor").html("Stahlhandske");
+//	jQuery( window ).on( "swipe", function( event ) {
+//		$("#editor").html("zipe");								   
+//	});
 }
 
 

@@ -61,14 +61,14 @@ function continueInit() {
 	if (gup('comic') != "") currentComic = ""+gup('comic')+"";
 	console.log(currentComic);
 	uagent = navigator.userAgent.toLowerCase();
-	if (uagent.search("symbian") > -1) { // Symbian device performance are typically low
+/*	if (uagent.search("symbian") > -1) { // Symbian device performance are typically low
 		transitionSteps = parseInt(transitionSteps/2);  
 		transitionStepDelay = parseInt(transitionStepDelay*2); 
 		pageTransitionSteps = 1;  
 		pageTransitionStepDelay = parseInt(pageTransitionStepDelay*2); 
 		fadeImageFile = 'tranparent.png'; // 50% transparency
 		}
-	for (var i=0; i <= transitionSteps; i++) { // create the table
+*/	for (var i=0; i <= transitionSteps; i++) { // create the table
 			panelTransitionTable[i] = {'factor': 1, 'panelLeft': 0, 'panelTop': 0, 'panelWidth': 100,'panelHeight': 100, 'widthPrct': '100%'};
 	}
 	for (var j=0; j <= pageTransitionSteps; j++) { // set up fade in/out images table
@@ -92,7 +92,7 @@ function continueInit() {
 	setTimeout(hideTapGuide, 2000);	
 	document.getElementById("pictureFrameLink").onclick = processKeypress;
 	document.getElementById("playIndicator").style.display = 'none'; 
-	if (window.widget) {if (softkeyControlled) menu.hideSoftkeys();}
+//	if (window.widget) {if (softkeyControlled) menu.hideSoftkeys();}
 	if (gup('panel') != "") {processShortcut(parseInt(gup('panel')))} // Creator uses url parameter for deeplinking to a panel
 	else if (browserStoragePanelNumber() > 0) {  
 		processShortcut(parseInt(browserStoragePanelNumber()));
@@ -102,6 +102,11 @@ function continueInit() {
 		document.getElementById("playIndicator").style.display = 'block'; // makes image visible
 		setTimeout(callAutoPlay, autoPlayDelay);
 	}
+//	jQuery( window ).on( "swipe", function( event ) {
+//		console.log("swipe");									   
+//		if (autoPlay) transitionEventCounter++;
+//		processNext();								   				   
+//	});
 }
 
 function processShortcut(panelNumber) {
