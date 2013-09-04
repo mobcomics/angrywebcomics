@@ -7,21 +7,25 @@ window.onload = init;
 function init() {
 	if(!window.console){ window.console = {log: function(){} }; } 
 	console.log("windowLoaded");
+	$.mobile.loading( 'show', {
+		text: 'loading',
+		textVisible: true,
+		theme: 'a',
+		html: ""
+	});
 	windowLoaded = true;
 	if (comicDataLoaded) continueInit();
 	
 };
 
 function continueInit() {
-//	var c = comics.comicsList[0];
-//	document.getElementById("comics").innerHTML = c.title;		
+	$.mobile.loading( 'hide');
 	showComics2();
 }
 
 
 function showComics2() {
 	var cList = "";
-//	cList = "<li><a href='#'><img src='../../_assets/img/album-bb.jpg'><h2>Broken Bells</h2><p>Broken Bells</p></a></li>";
 	for (var i=0;i<comics.comicsList.length;i++) {
 		var c = comics.comicsList[i];
 		var panelsLeft = c.panelCount-readPanels(i);
@@ -33,58 +37,20 @@ function showComics2() {
 	for (var i=0;i<comics.comicsList.length;i++) {
 		$("#info"+i).bind('click', { row: i}, function(event) {
 			var data = event.data;
-			test(data.row);
+			updatePopup(data.row);
 		});
 		}
 	}
 	
-function test(p) {
-	console.log("testi"+p);
-	}	
-
-function updatePopUp() {
-	
-	}
-
-/*
-<div data-role="popup" id="comicinfo" data-theme="d" data-overlay-theme="b" class="ui-content" padding-bottom:2em;">
-    <h3>Raging Saintmakers Square</h3>
-    <p><a href="http://viistar.com">By Renee Yoch (click to view Website)</a></p>    
-    <div>A story about a cannibal in a bustle, a trainee diplomat, and a very large fish.</div>
-    <div><img src="http://mobcomics.com/test/saintmakers1/assets/ss.png" style="height:300px"></div>
-    <a id="read" href="reader/viewer.html?comic=0" data-role="button" rel="external" data-theme="a" data-inline="true" data-mini="true">Read</a>
-    <a id="cancel" href="#" data-role="button" data-rel="back" data-inline="true" data-mini="true">Cancel</a>
-</div>
-*/
-
-
-
-/*
-function showComics() {
-	var cList = "";
-	var itemCode1 = "<div>";
-	var itemCode2 = "</div><div></div>";	
-	var imgCode1 = "<img src='";
-	var imgCode2 = "'>";
-	var titleCode1 = "<div><a onclick='openComic(";
-	var titleCode3 = "</a></div>";
-	var panelCode1 = "<div>";
-	var panelCode2 = "</div>";
-	var descCode1 = "<div>";
-	var descCode2 = "</div>";
-	var artistCode1 = "<div><a href=\"javascript:openBrowser('";
-	var artistCode2 = "</div>";	
-	console.log(comics.comicsList.length);
-	for (var i=0;i<comics.comicsList.length;i++) {
-		var c = comics.comicsList[i];
-		var panelsLeft = c.panelCount-readPanels(i);
-		cList+=itemCode1+imgCode1+c.folderUrl+c.icon+imgCode2+titleCode1+i+");'>"+c.title+titleCode3+panelCode1+panelsLeft+" unread panels"+panelCode2+descCode1+c.description+descCode2+artistCode1+c.creatorUrl+"')\">by "+c.creatorNames+"</a>"+artistCode2+itemCode2;
-		}
-	console.log(cList);
-	document.getElementById("comics").innerHTML = cList;		
-//	$("#comics").html(cList);		
-	}
-*/
+function updatePopup(i) {
+	var c = comics.comicsList[i];
+	$("#title").html(c.title);
+	$("#creatorUrl").attr("href", c.creatorUrl)
+	$("#creatorUrl").html("By "+c.creatorNames+" (click to view Website)");	
+	$("#description").html(c.description);	
+	$("#read").attr("href", "reader/viewer.html?comic="+i);
+	$('#comicinfo').popup('refresh');		
+}
 
 function openComic(index) {
 	window.location = "reader/viewer.html?comic="+index;

@@ -12,15 +12,14 @@
 <body>
 <div data-role="header">
     <span class="ui-title">Comics List</span>
-    <a href="index.html" rel="external" data-icon="home" class="ui-btn-right">Home</a>
+    <a href="index.html" rel="external" data-icon="home" class="ui-btn-left">Home</a>
 </div>
 <ul id="comics2" data-role="listview" data-inset="true">
 <div data-role="popup" id="comicinfo" data-theme="d" data-overlay-theme="b" class="ui-content" padding-bottom:2em;">
-    <h3>Raging Saintmakers Square</h3>
-    <p><a href="http://viistar.com">By Renee Yoch (click to view Website)</a></p>    
-    <div>A story about a cannibal in a bustle, a trainee diplomat, and a very large fish.</div>
-    <div><img src="http://mobcomics.com/test/saintmakers1/assets/ss.png" style="height:300px"></div>
-    <a id="read" href="reader/viewer.html?comic=0" data-role="button" rel="external" data-theme="a" data-inline="true" data-mini="true">Read</a>
+    <h3 id='title'></h3>
+    <p><a id="creatorUrl" href="#"></a></p>    
+    <div id='description'></div>
+    <a id="read" href="#" data-role="button" rel="external" data-theme="a" data-inline="true" data-mini="true">Read</a>
     <a id="cancel" href="#" data-role="button" data-rel="back" data-inline="true" data-mini="true">Cancel</a>
 </div>
 </ul> 
