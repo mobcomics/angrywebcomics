@@ -57,7 +57,7 @@ function loadScript(){
 		appDataLoaded = true;
 		if (windowLoaded) continueInit(2);
     };
-    script.src = "http://mobcomics.com/zines/angry/config.js";
+    script.src = "http://mobcomics.com/zines/angry/config.js?"+$.now();
     document.getElementsByTagName("head")[0].appendChild(script);
 }
 
