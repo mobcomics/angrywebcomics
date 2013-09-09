@@ -9,3 +9,8 @@
 .homePageStyle {
 	padding: 20px;	
 }
+
+.howToImageStyle {
+	border: 3px solid #666;
+	width: 300px;
+}
