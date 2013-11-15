@@ -55,5 +55,4 @@
 	<access origin="http://aws.com" subdomains="true" />	
 	<access origin="http://amazonaws.com" subdomains="true" />	
 	<access origin="http://jquery.com" subdomains="true" />	
-	<gap:plugin name="com.adobe.plugins.gaplugin" version="2.3.1" />
 </widget>
